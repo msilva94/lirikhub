@@ -1,0 +1,12 @@
+<div [ngClass]="{'footer': this.darkmodeService.loadDarkMode()=='false', 'footer-dark': this.darkmodeService.loadDarkMode()=='true'}">
+  <span [ngClass]="{'footer-span': this.darkmodeService.loadDarkMode()=='false', 'footer-span-dark': this.darkmodeService.loadDarkMode()=='true'}">
+    Copyright &copy; {{year}} by {{name}} | <i class="fa fa-bug fa-lg"></i>
+    <a [ngClass]="{'a-default': this.darkmodeService.loadDarkMode()=='false', 'a-dark': this.darkmodeService.loadDarkMode()=='true'}" href="https://docs.google.com/forms/d/e/1FAIpQLSdTTYhnTvfAAz0cFCd93fZq08RFqIL0bO4UO0h7fTYrL4Ic1w/viewform" target="_blank">
+      Report Bug</a> | <i class="fa fa-usd fa-lg"></i>
+    <a [ngClass]="{'a-default': this.darkmodeService.loadDarkMode()=='false', 'a-dark': this.darkmodeService.loadDarkMode()=='true'}" routerLink="/donate">
+      Donate</a> | <i class="fa fa-twitter fa-lg"></i>
+    <a [ngClass]="{'a-default': this.darkmodeService.loadDarkMode()=='false', 'a-dark': this.darkmodeService.loadDarkMode()=='true'}" href="https://twitter.com/msilvapor" target="_blank">
+      Twitter
+    </a>
+  </span>
+</div>

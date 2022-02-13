@@ -1,0 +1,8 @@
+<div class="panel">
+  <div class="heading">
+      <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">404</h2>
+  </div>
+  <div class="content">
+     <span [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Page not found.</span>
+  </div>
+</div>

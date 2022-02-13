@@ -1,0 +1,39 @@
+<div class="panel" *ngIf="games">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Games</h2>
+    </div>
+    <div class="content">
+        <div class="ctrl-btns">
+            <button type="button" class="btn btn-primary" routerLink="/games/add">Add</button>
+        </div>
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Search Game</label>
+        <input [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="search" (input)="searchGame()" name="search" type="text" placeholder="Game">
+
+        <span [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Total: {{total}}</span>
+        <div [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <div [ngClass]="{'list-group-sub': this.darkmodeService.loadDarkMode()=='false', 'list-group-sub-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let game of filteredGames">
+                <a [ngClass]="{'list-link': this.darkmodeService.loadDarkMode()=='false', 'list-link-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <div class="list-item">
+                        <span>{{game.name}}</span>
+                        <button type="button" class="btn btn-danger btn-sm float-right" (click)="onDeleteClick(game)">Delete</button>
+                        <button type="button" class="btn btn-info btn-sm float-right" routerLink="/games/edit/{{game._id}}">Edit</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div [ngClass]="{'pages': this.darkmodeService.loadDarkMode()=='false', 'pages-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <ul class="pagination">
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': curPage==1 && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': curPage==1 && this.darkmodeService.loadDarkMode()=='true'}" (click)="getPrevPage()">&laquo;</a>
+                </li>
+                <li *ngFor="let page of pages" [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-active': curPage==page && this.darkmodeService.loadDarkMode()=='false', 'page-link-active-dark': curPage==page && this.darkmodeService.loadDarkMode()=='true'}" (click)="setPage(page); getGamesPage();">{{page}}</a>
+                </li>
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='true'}" (click)="getNextPage()">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

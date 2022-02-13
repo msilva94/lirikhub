@@ -1,0 +1,54 @@
+<div class="panel" *ngIf="tier1 && tier2 && tier3">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Emotes</h2>
+    </div>
+    <div class="content">
+        <div class="sub-heading">
+            <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">4,99$ Sub</h4>
+        </div>
+        <div [ngClass]="{'emote-card': this.darkmodeService.loadDarkMode()=='false', 'emote-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let emote of tier1; let i = index">
+            <div class="emote-picture">
+                <img src="https://static-cdn.jtvnw.net/emoticons/v1/{{emote.id}}/3.0" width="72" height="72" title="{{emote.code}}" />
+            </div>
+            <div [ngClass]="{'emote-code': this.darkmodeService.loadDarkMode()=='false', 'emote-code-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <span>{{emote.code}}</span>
+            </div>
+        </div>
+
+        <div class="sub-heading">
+            <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">9,99$ Sub</h4>
+        </div>
+        <div [ngClass]="{'emote-card': this.darkmodeService.loadDarkMode()=='false', 'emote-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let emote of tier2; let i = index">
+            <div class="emote-picture">
+                <img src="https://static-cdn.jtvnw.net/emoticons/v1/{{emote.id}}/3.0" width="72" height="72" title="{{emote.code}}" />
+            </div>
+            <div [ngClass]="{'emote-code': this.darkmodeService.loadDarkMode()=='false', 'emote-code-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <span>{{emote.code}}</span>
+            </div>
+        </div>
+
+        <div class="sub-heading">
+            <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">24,99$ Sub</h4>
+        </div>
+        <div [ngClass]="{'emote-card': this.darkmodeService.loadDarkMode()=='false', 'emote-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let emote of tier3; let i = index">
+            <div class="emote-picture">
+                <img src="https://static-cdn.jtvnw.net/emoticons/v1/{{emote.id}}/3.0" width="72" height="72" title="{{emote.code}}" />
+            </div>
+            <div [ngClass]="{'emote-code': this.darkmodeService.loadDarkMode()=='false', 'emote-code-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <span>{{emote.code}}</span>
+            </div>
+        </div>
+
+        <div class="sub-heading">
+            <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Old Emotes</h4>
+        </div>
+        <div [ngClass]="{'emote-card': this.darkmodeService.loadDarkMode()=='false', 'emote-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let emote of old_emotes; let i = index">
+            <div class="emote-picture">
+                <img src="https://static-cdn.jtvnw.net/emoticons/v1/{{emote.id}}/3.0" width="72" height="72" title="{{emote.code}}" />
+            </div>
+            <div [ngClass]="{'emote-code': this.darkmodeService.loadDarkMode()=='false', 'emote-code-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <span>{{emote.code}}</span>
+            </div>
+        </div>
+    </div>
+</div>

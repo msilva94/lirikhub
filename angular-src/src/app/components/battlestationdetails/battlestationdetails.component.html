@@ -1,0 +1,23 @@
+<div class="panel">
+  <div class="heading">
+      <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Battlestations Review #{{number}}</h2>
+  </div>
+  <div class="sub-heading">
+    <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">{{date | date: 'longDate'}}</h4>
+  </div>
+  <div class="content">
+    <div class="player-padding ctrl-btns" [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+      <div [ngClass]="{'playthrough-vod-header': this.darkmodeService.loadDarkMode()=='false', 'playthrough-vod-header-dark': this.darkmodeService.loadDarkMode()=='true'}">
+        <span>VODS: </span>
+        <button *ngFor="let vod of vods; let i = index;" class="btn btn-primary btn-sm pointer" scrollTo scrollTargetSelector="#player" (click)="jumpToVod(i)">VOD {{i + 1}}</button>
+      </div>
+      <div id="player">
+        <div id="twitch-player"></div>
+      </div>
+    </div>
+    <div *ngIf="authService.loggedIn()" class="ctrl-btns">
+      <button type="button" class="btn btn-info" routerLink="/battlestations/edit/{{number}}">Edit</button>
+      <button type="button" class="btn btn-danger" (click)="onDeleteClick(number)">Delete</button>
+    </div>
+  </div>
+</div>

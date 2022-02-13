@@ -1,0 +1,14 @@
+<div class="panel">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Donate</h2>
+    </div>
+    <div class="content">
+        <span class="span-thin" [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Donations are never requested but keep in mind that they help me keep this website available to you. So if you use this website please consider donating.</span>
+        <br /><br />
+        <form #paypal action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="7YGP6MEWUQG88">
+            <input (click)="paypal.submit()" type="image" src="../../../assets/images/paypalbutton.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        </form>
+    </div>
+</div>

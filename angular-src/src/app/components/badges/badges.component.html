@@ -1,0 +1,30 @@
+<div class="panel" *ngIf="bits && subs">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Badges</h2>
+    </div>
+    <div class="content">
+        <div class="sub-heading">
+            <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Bits</h4>
+        </div>
+        <div [ngClass]="{'emote-card': this.darkmodeService.loadDarkMode()=='false', 'emote-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let bit of bits; let i = index">
+            <div class="emote-picture">
+                <img src="{{bit.image_url_4x}}" title="{{bit.title}}" />
+            </div>
+            <div [ngClass]="{'emote-code': this.darkmodeService.loadDarkMode()=='false', 'emote-code-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <span>{{bit.title}}</span>
+            </div>
+        </div>
+
+        <div class="sub-heading">
+            <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Subs</h4>
+        </div>
+        <div [ngClass]="{'emote-card': this.darkmodeService.loadDarkMode()=='false', 'emote-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let sub of subs; let i = index">
+            <div class="emote-picture">
+                <img src="{{sub.image_url_4x}}" title="{{sub.title}}" />
+            </div>
+            <div [ngClass]="{'emote-code': this.darkmodeService.loadDarkMode()=='false', 'emote-code-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <span>{{sub.title}}</span>
+            </div>
+        </div>
+    </div>
+</div>

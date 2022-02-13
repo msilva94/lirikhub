@@ -1,0 +1,50 @@
+<div class="panel" *ngIf="subsundays">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Sub Sundays</h2>
+    </div>
+    <div class="content">
+        <div *ngIf="authService.loggedIn()" class="ctrl-btns">
+            <button type="button" class="btn btn-primary" routerLink="/subsundays/add">Add</button>
+        </div>
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Search/Sort</label>
+        
+        <div>
+            <div class="filters-search">
+                <input [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="search" (input)="searchGame()" name="search" type="text" placeholder="Search game">
+            </div>
+            <div class="filters-sort">
+                <select class="col-sm" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curSort" (ngModelChange)="onSortChange()" name="sort">
+                    <option [value]="'date'">Date</option>
+                    <option [value]="'games'">Nr. of games</option>
+                    <option [value]="'votes'">Votes</option>
+                </select>
+            </div>
+        </div>
+
+        <div [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <div [ngClass]="{'list-group-sub': this.darkmodeService.loadDarkMode()=='false', 'list-group-sub-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let subsunday of filteredSubsundays">
+                <a [ngClass]="{'list-link': this.darkmodeService.loadDarkMode()=='false', 'list-link-dark': this.darkmodeService.loadDarkMode()=='true'}" routerLink="/subsundays/{{subsunday.number}}">
+                    <div class="list-item">
+                        <span>Sub Sunday #{{subsunday.number}} ({{subsunday.date | date: 'longDate'}})</span>
+                        <span class="float-right" [ngClass]="{'badge': this.darkmodeService.loadDarkMode()=='false', 'badge-dark': this.darkmodeService.loadDarkMode()=='true'}">{{subsunday.votes}} votes</span>
+                        <span class="float-right" [ngClass]="{'badge': this.darkmodeService.loadDarkMode()=='false', 'badge-dark': this.darkmodeService.loadDarkMode()=='true'}">{{subsunday.games.length}} games</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div [ngClass]="{'pages': this.darkmodeService.loadDarkMode()=='false', 'pages-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <ul class="pagination">
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': curPage==1 && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': curPage==1 && this.darkmodeService.loadDarkMode()=='true'}" (click)="getPrevPage()">&laquo;</a>
+                </li>
+                <li *ngFor="let page of pages" [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-active': curPage==page && this.darkmodeService.loadDarkMode()=='false', 'page-link-active-dark': curPage==page && this.darkmodeService.loadDarkMode()=='true'}" (click)="setPage(page); getSubsundaysPage();">{{page}}</a>
+                </li>
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='true'}" (click)="getNextPage()">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

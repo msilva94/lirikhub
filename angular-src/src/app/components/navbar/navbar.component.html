@@ -1,0 +1,41 @@
+<div class="nav">
+  <div class="logo"></div>
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/subsundays" routerLinkActive="nav-active">Sub Sundays</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/playthroughs" routerLinkActive="nav-active">Playthroughs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/subhotlines" routerLinkActive="nav-active">Sub Hotlines</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/fightmefridays" routerLinkActive="nav-active">Fight Me Fridays</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/battlestations" routerLinkActive="nav-active">Battlestations Reviews</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/liriknchill" routerLinkActive="nav-active">Lirik n' Chill</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/emotes" routerLinkActive="nav-active">Emotes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/badges" routerLinkActive="nav-active">Badges</a>
+    </li>
+    <li *ngIf="authService.loggedIn()" class="nav-item-right">
+      <a class="nav-link" href="#" (click)="onLogoutClick()">Logout</a>
+    </li>
+    <li *ngIf="authService.loggedIn()" class="nav-item-right">
+      <a class="nav-link" routerLink="/games" routerLinkActive="nav-active">Games</a>
+    </li>
+    <li class="nav-item-right">
+      <input class="toggle-checkbox" type="checkbox" id="switch" [checked]="this.darkmodeService.loadDarkMode()=='true'" (change)="this.darkmodeService.switchDarkMode()" /><label class="toggle-label" for="switch">Toggle</label>
+    </li>
+  </ul>
+</div>

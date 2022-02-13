@@ -1,0 +1,5 @@
+<app-navbar></app-navbar>
+<div [ngClass]="{'container': this.darkmodeService.loadDarkMode()=='false', 'container-dark': this.darkmodeService.loadDarkMode()=='true'}">
+    <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>

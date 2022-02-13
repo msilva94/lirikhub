@@ -1,0 +1,37 @@
+<div class="panel">
+  <div class="heading">
+      <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">{{playthrough.game.name}}</h2>
+  </div>
+  <div class="sub-heading">
+    <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">{{playthrough.date | date: 'longDate'}}</h4>
+  </div>
+  <div class="content">
+    <div [ngClass]="{'list-group playthrough-card': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark playthrough-card-dark': this.darkmodeService.loadDarkMode()=='true'}">
+      <div class="game-card-image">
+        <div class="game-card-image-content">
+          <img src="{{playthrough.game.image}}" title="{{playthrough.game.name}}" alt="{{playthrough.game.name}}">
+        </div>
+      </div>
+      <div class="game-card-btm">
+        <div class="game-card-btns">
+            <button class="btn btn-secondary btn-sm pointer" (click)="goBuy(playthrough.game.buyurl)">Buy Game</button>
+        </div>
+        <span *ngIf="playthrough.rating" class="float-right" [ngClass]="{'badge-dt': this.darkmodeService.loadDarkMode()=='false', 'badge-dt-dark': this.darkmodeService.loadDarkMode()=='true'}">{{playthrough.rating}}/10</span>
+        <span *ngIf="!playthrough.rating" class="float-right" [ngClass]="{'badge-dt': this.darkmodeService.loadDarkMode()=='false', 'badge-dt-dark': this.darkmodeService.loadDarkMode()=='true'}">-/10</span>
+      </div>
+    </div>
+    <div class="player-padding" [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+      <div [ngClass]="{'playthrough-vod-header': this.darkmodeService.loadDarkMode()=='false', 'playthrough-vod-header-dark': this.darkmodeService.loadDarkMode()=='true'}">
+        <span>VODS: </span>
+        <button *ngFor="let vod of playthrough.vods; let i = index;" class="btn btn-primary btn-sm pointer" scrollTo scrollTargetSelector="#player" (click)="jumpToVod(i)">VOD {{i + 1}}</button>
+      </div>
+      <div id="player">
+        <div id="twitch-player"></div>
+      </div>
+    </div>
+    <div *ngIf="authService.loggedIn()" class="ctrl-btns">
+      <button type="button" class="btn btn-info" routerLink="/playthroughs/edit/{{id}}">Edit</button>
+      <button type="button" class="btn btn-danger" (click)="onDeleteClick(id)">Delete</button>
+    </div>
+  </div>
+</div>

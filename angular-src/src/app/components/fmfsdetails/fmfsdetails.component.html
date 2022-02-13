@@ -1,0 +1,37 @@
+<div class="panel">
+  <div class="heading">
+      <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Fight Me Friday #{{number}}</h2>
+  </div>
+  <div class="sub-heading">
+    <h4 [ngClass]="{'sub-heading-title': this.darkmodeService.loadDarkMode()=='false', 'sub-heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">{{date | date: 'longDate'}}</h4>
+  </div>
+  <div class="content">
+    <div [ngClass]="{'list-group game-card': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark game-card-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let game of games; let i = index;">
+      <div [ngClass]="{'game-card-header': this.darkmodeService.loadDarkMode()=='false', 'game-card-header-dark': this.darkmodeService.loadDarkMode()=='true'}">
+        <span [ngClass]="{'game-card-title': this.darkmodeService.loadDarkMode()=='false', 'game-card-title-dark': this.darkmodeService.loadDarkMode()=='true'}" title="{{game.game.name}}">{{game.game.name}}</span>
+      </div>
+      <div class="game-card-image">
+        <div class="game-card-image-content">
+          <img src="{{game.game.image}}" title="{{game.game.name}}" alt="{{game.game.name}}">
+        </div>
+      </div>
+      <div [ngClass]="{'opp-list': this.darkmodeService.loadDarkMode()=='false', 'opp-list-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let opponent of game.opponents; let j = index;">
+        <span class="span-thin" [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">vs. {{opponent.name}}</span>
+        <button class="btn btn-primary btn-sm float-right pointer" scrollTo scrollTargetSelector="#player" (click)="jumpToVod(i,j)">Watch</button>
+      </div>
+      <div class="game-card-btm">
+        <button class="btn btn-secondary btn-sm pointer" (click)="goBuy(game.game.buyurl)">Buy Game</button>
+      </div>
+    </div>
+
+    <div class="player-padding" [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+      <div id="player">
+        <div id="twitch-player"></div>
+      </div>
+    </div>
+    <div *ngIf="authService.loggedIn()" class="ctrl-btns">
+      <button type="button" class="btn btn-info" routerLink="/fightmefridays/edit/{{number}}">Edit</button>
+      <button type="button" class="btn btn-danger" (click)="onDeleteClick(number)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="panel">
+  <div class="heading">
+    <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Login</h2>
+  </div>
+
+  <div *ngIf="isError" class="alert alert-danger">
+    {{message}}
+  </div>
+
+  <div class="content">
+    <form (submit)="onLoginSubmit()">
+      <div class="form-group">
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Username</label>
+        <input type="text" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="username" placeholder="Username" name="username">
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Password</label>
+        <input type="password" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="password" placeholder="Password" name="password">
+      </div>
+      <input type="submit" class="btn btn-primary" value="Login">
+    </form>
+  </div>
+</div>

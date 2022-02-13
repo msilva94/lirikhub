@@ -1,0 +1,117 @@
+<div class="panel">
+  <div class="heading">
+    <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Add Fight Me Friday</h2>
+  </div>
+
+  <div *ngIf="!validateService.validateNumber(fmf.number)" class="alert alert-danger">
+    Please insert a valid number.
+  </div>
+  <div *ngIf="!validateService.validateDate(date)" class="alert alert-danger">
+    Please insert a valid date.
+  </div>
+  <div *ngIf="!validateService.validateArray(addedGames)" class="alert alert-danger">
+    Please insert at least one game.
+  </div>
+
+  <div class="content">
+    <form (submit)="addFmf()">
+      <div class="form-group">
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Number</label>
+        <input type="text" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true', 'is-invalid': !validateService.validateNumber(fmf.number)}" [(ngModel)]="fmf.number" placeholder="Number" name="number">
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">VOD Url</label>
+        <input type="text" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="fmf.vodurl" placeholder="VOD URL" name="vodurl">
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Date</label>
+        <input type="text" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true', 'is-invalid': !validateService.validateDate(date)}" [(ngModel)]="date" placeholder="Date (DD-MM-YYYY)" name="date">
+      </div>
+      
+      <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Games</label>
+      <table [ngClass]="{'table-default': this.darkmodeService.loadDarkMode()=='false', 'table-dark': this.darkmodeService.loadDarkMode()=='true'}">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Buy Url</th>
+            <th>Opponents</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let games of addedGames; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{games.game.name}}</td>
+            <td><img src="{{games.game.image}}" width="160" height="90"></td>
+            <td><a [ngClass]="{'a-default': this.darkmodeService.loadDarkMode()=='false', 'a-dark': this.darkmodeService.loadDarkMode()=='true'}" href="{{games.game.buyurl}}" target="_blank">Link</a></td>
+            <td><p class="span-thin" *ngFor="let opp of games.opponents">{{opp.name}} ({{opp.vodtime}})</p></td>
+            <td>
+              <input *ngIf="i!=0" type="button" (click)="moveGameUp(i)" value="UP" class="btn btn-sm btn-primary">
+              <input *ngIf="i!=addedGames.length-1" type="button" (click)="moveGameDown(i)" value="DOWN" class="btn btn-sm btn-primary">
+              <input type="button" (click)="deleteGame(i)" value="Delete" class="btn btn-sm btn-danger">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="col-hf">
+        <form (submit)="addGame()">
+          <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Select Game</label>
+          <select [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="selectedGame" (ngModelChange)="onGameListChange()" name="game">
+            <option *ngFor="let game of gameList" [ngValue]="game">{{game.name}}</option>
+          </select>
+
+          <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Opponents</label>
+          <table [ngClass]="{'table-default': this.darkmodeService.loadDarkMode()=='false', 'table-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>VOD Time</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let opponent of addedOpponents; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{opponent.name}}</td>
+                <td>{{opponent.vodtime}}</td>
+                <td>
+                  <input type="button" (click)="deleteOpponent(i)" value="Delete" class="btn btn-sm btn-danger">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div>
+            <form (submit)="addOpponent()">
+              <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Opponent Name</label>
+              <input type="text" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curOppName" placeholder="Opponent" name="oppname">
+
+              <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">VOD Time</label>
+              <input type="text" class="col-sm" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curTimeH" name="vodtimeh" placeholder="Hours">
+              <input type="text" class="col-sm" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curTimeM" name="vodtimem" placeholder="Minutes">
+              <input type="text" class="col-sm" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curTimeS" name="vodtimes" placeholder="Seconds">
+
+              <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                <input class="form-check-input" type="checkbox" [checked]="hasDiffVod" (change)="hasDiffVod = !hasDiffVod">Different VOD?
+              </label>
+
+              <div *ngIf="hasDiffVod">
+                <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">VOD Url</label>
+                <input [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curVodUrl" name="oppvodurl" placeholder="VOD Url">
+              </div>
+
+              <button class="btn btn-info" type="submit">Add Opponent</button>
+            </form>
+          </div>
+          <br>
+          <button class="btn btn-info" type="submit">Add Game</button>
+        </form>
+      </div>
+
+      <br>
+      <button class="btn btn-secondary" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

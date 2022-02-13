@@ -1,0 +1,29 @@
+<div class="panel">
+  <div class="heading">
+    <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Edit Game</h2>
+  </div>
+
+  <div *ngIf="!validateService.validateString(name)" class="alert alert-danger">
+    Please insert a valid game name.
+  </div>
+  <div *ngIf="!validateService.validateString(image)" class="alert alert-danger">
+    Please insert a valid image.
+  </div>
+
+  <div class="content">
+    <form (submit)="updateGame()">
+      <div class="form-group">
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Name</label>
+        <input type="text" [(ngModel)]="name" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true', 'is-invalid': !validateService.validateString(name)}" placeholder="Name" name="name">
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Image</label>
+        <input type="text" [(ngModel)]="image" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true', 'is-invalid': !validateService.validateString(image)}" placeholder="Image" name="image">
+        <div *ngIf="image"><p [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Image preview: </p><img src="{{image}}" width="240" height="135" /></div>
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Buy Url</label>
+        <input type="text" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="buyurl" placeholder="Buy Url" name="buyurl">
+      </div>
+      <input type="submit" class="btn btn-secondary" value="Submit">
+    </form>
+  </div>
+</div>

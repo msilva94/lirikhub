@@ -1,0 +1,17 @@
+<div class="panel">
+  <div class="content">
+    <div class="player-padding" [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+      <div id="player">
+        <div id="twitch-player"></div>
+      </div>
+      <div *ngIf="isLive" class="stream-stats">
+        <h4 [ngClass]="{'stream-title': this.darkmodeService.loadDarkMode()=='false', 'stream-title-dark': this.darkmodeService.loadDarkMode()=='true'}">{{stream.title}}</h4>
+        <span [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}"><b>{{stream.user_name}}</b> streaming <b>{{stream.game}}</b> for <b>{{stream.viewer_count}}</b> viewers</span>
+      </div>
+      <div *ngIf="!isLive" class="stream-stats">
+        <h4 *ngIf="nextStream!='Stream starting soon!'" [ngClass]="{'stream-title': this.darkmodeService.loadDarkMode()=='false', 'stream-title-dark': this.darkmodeService.loadDarkMode()=='true'}">NEXT STREAM</h4>
+        <span [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">{{nextStream}}</span>
+      </div>
+    </div>
+  </div>
+</div>

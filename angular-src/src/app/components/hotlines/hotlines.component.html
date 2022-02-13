@@ -1,0 +1,33 @@
+<div class="panel" *ngIf="hotlines">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Sub Hotlines</h2>
+    </div>
+    <div class="content">
+        <div *ngIf="authService.loggedIn()" class="ctrl-btns">
+            <button type="button" class="btn btn-primary" routerLink="/subhotlines/add">Add</button>
+        </div>
+
+        <div [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <div [ngClass]="{'list-group-sub': this.darkmodeService.loadDarkMode()=='false', 'list-group-sub-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let hotline of filteredHotlines">
+                <a [ngClass]="{'list-link': this.darkmodeService.loadDarkMode()=='false', 'list-link-dark': this.darkmodeService.loadDarkMode()=='true'}" routerLink="/subhotlines/{{hotline.number}}">
+                    <div class="list-item">
+                        <span>Sub Hotline #{{hotline.number}} ({{hotline.date | date: 'longDate'}})</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div [ngClass]="{'pages': this.darkmodeService.loadDarkMode()=='false', 'pages-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <ul class="pagination">
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': curPage==1 && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': curPage==1 && this.darkmodeService.loadDarkMode()=='true'}" (click)="getPrevPage()">&laquo;</a>
+                </li>
+                <li *ngFor="let page of pages" [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-active': curPage==page && this.darkmodeService.loadDarkMode()=='false', 'page-link-active-dark': curPage==page && this.darkmodeService.loadDarkMode()=='true'}" (click)="setPage(page); getHotlinesPage();">{{page}}</a>
+                </li>
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='true'}" (click)="getNextPage()">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

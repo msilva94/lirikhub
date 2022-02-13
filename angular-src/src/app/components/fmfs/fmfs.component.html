@@ -1,0 +1,49 @@
+<div class="panel" *ngIf="fmfs">
+    <div class="heading">
+        <h2 [ngClass]="{'heading-title': this.darkmodeService.loadDarkMode()=='false', 'heading-title-dark': this.darkmodeService.loadDarkMode()=='true'}">Fight Me Fridays</h2>
+    </div>
+    <div class="content">
+        <div *ngIf="authService.loggedIn()" class="ctrl-btns">
+            <button type="button" class="btn btn-primary" routerLink="/fightmefridays/add">Add</button>
+        </div>
+
+        <label [ngClass]="{'span-default': this.darkmodeService.loadDarkMode()=='false', 'span-dark': this.darkmodeService.loadDarkMode()=='true'}">Search/Sort</label>
+        <div>
+            <div class="filters-search">
+                <input [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="search" (input)="searchGame()" name="search" type="text" placeholder="Search game">
+            </div>
+            <div class="filters-sort">
+                <select class="col-sm" [ngClass]="{'form-control': this.darkmodeService.loadDarkMode()=='false', 'form-control-dark': this.darkmodeService.loadDarkMode()=='true'}" [(ngModel)]="curSort" (ngModelChange)="onSortChange()" name="sort">
+                    <option [value]="'date'">Date</option>
+                    <option [value]="'games'">Nr. of games</option>
+                    <option [value]="'opponents'">Nr. of opponents</option>
+                </select>
+            </div>
+        </div>
+
+        <div [ngClass]="{'list-group': this.darkmodeService.loadDarkMode()=='false', 'list-group-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <div [ngClass]="{'list-group-sub': this.darkmodeService.loadDarkMode()=='false', 'list-group-sub-dark': this.darkmodeService.loadDarkMode()=='true'}" *ngFor="let fmf of filteredFmfs; let i=index;">
+                <a [ngClass]="{'list-link': this.darkmodeService.loadDarkMode()=='false', 'list-link-dark': this.darkmodeService.loadDarkMode()=='true'}" routerLink="/fightmefridays/{{fmf.number}}">
+                    <div class="list-item">
+                        <span>Fight Me Friday #{{fmf.number}} ({{fmf.date | date: 'longDate'}})</span>
+                        <span class="float-right" [ngClass]="{'badge': this.darkmodeService.loadDarkMode()=='false', 'badge-dark': this.darkmodeService.loadDarkMode()=='true'}">{{getNumberOfOpponents(i)}} opponents</span>
+                        <span class="float-right" [ngClass]="{'badge': this.darkmodeService.loadDarkMode()=='false', 'badge-dark': this.darkmodeService.loadDarkMode()=='true'}">{{fmf.games.length}} games</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div [ngClass]="{'pages': this.darkmodeService.loadDarkMode()=='false', 'pages-dark': this.darkmodeService.loadDarkMode()=='true'}">
+            <ul class="pagination">
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': curPage==1 && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': curPage==1 && this.darkmodeService.loadDarkMode()=='true'}" (click)="getPrevPage()">&laquo;</a>
+                </li>
+                <li *ngFor="let page of pages" [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-active': curPage==page && this.darkmodeService.loadDarkMode()=='false', 'page-link-active-dark': curPage==page && this.darkmodeService.loadDarkMode()=='true'}" (click)="setPage(page); getFmfsPage();">{{page}}</a>
+                </li>
+                <li [ngClass]="{'page-item': this.darkmodeService.loadDarkMode()=='false', 'page-item-dark': this.darkmodeService.loadDarkMode()=='true'}">
+                    <a [ngClass]="{'page-link': this.darkmodeService.loadDarkMode()=='false', 'page-link-dark': this.darkmodeService.loadDarkMode()=='true', 'page-link-disabled': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='false', 'page-link-disabled-dark': (curPage==numPages || numPages==0) && this.darkmodeService.loadDarkMode()=='true'}" (click)="getNextPage()">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+  </div>
+</div>
